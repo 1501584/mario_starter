@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Enemy : MonoBehaviour
-{
+public class EnemySpiner : MonoBehaviour {
 
     // variables taken from CharacterController.Move example script
     // https://docs.unity3d.com/ScriptReference/CharacterController.Move.html
@@ -66,15 +65,7 @@ public class Enemy : MonoBehaviour
     //
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        // find out what we've hit
-        if (hit.collider.gameObject.tag == "Pipe")
-        {
-            // we've hit the pipe
-
-            // flip the direction of the enemy
-            direction = -direction;
-        }
-        else if (hit.collider.gameObject.CompareTag("Player"))
+        if (hit.collider.gameObject.CompareTag("Player"))
         {
             // we've hit the player
 
@@ -89,6 +80,10 @@ public class Enemy : MonoBehaviour
 
             // reset the enemy
             Reset();
+        }
+        else if(!hit.collider.gameObject.CompareTag("Ground"))
+        {
+            direction = -direction;
         }
     }
 }
