@@ -4,6 +4,7 @@ using System.Collections;
 public class EnemyPlant : MonoBehaviour
 {
     public float speed;
+    public bool startUp;
 
     private bool moveUp;
     private Vector3 startPosition;
@@ -15,7 +16,7 @@ public class EnemyPlant : MonoBehaviour
     {
         playerGameObject = GameObject.FindGameObjectWithTag("Player");
 
-        moveUp = true;
+        moveUp = startUp;
         startPosition = transform.position;
         direction = Vector3.zero;
         StartCoroutine("Move");

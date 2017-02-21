@@ -26,8 +26,14 @@ public class EnemySpiner : MonoBehaviour {
         // record the start position
         start_position = transform.position;
 
+       // CHoose random direction
+        int i = Random.Range(0, 2);
+        if (i == 0)
+            direction.x = -1.0f;
+
         // record the start direction
         start_direction = direction;
+
     }
 
     public void Reset()
@@ -70,7 +76,8 @@ public class EnemySpiner : MonoBehaviour {
         }
         else if(!hit.collider.gameObject.CompareTag("Ground"))
         {
-            direction = -direction;
+            if(hit.collider.name != gameObject.name)
+                direction = -direction;
         }
     }
 }
