@@ -12,6 +12,8 @@ public class EnemyLakitu : MonoBehaviour {
     private GameObject playerGameObject;
     private float enemySpawnTimer;
 
+    Vector3 start_position; // start position of the enemy
+
     // Use this for initialization
     void Start()
     {
@@ -20,12 +22,23 @@ public class EnemyLakitu : MonoBehaviour {
         startPosition = transform.position;
         direction = Vector3.zero;
         enemySpawnTimer = timeToSpawnEnemy;
-        StartCoroutine("Move");	
-	}
+        StartCoroutine("Move");
+
+        // record the start position
+        start_position = transform.position;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
         enemySpawnTimer += Time.deltaTime;
+    }
+
+    public void Reset()
+    {
+        // reset the enemy position to the start position
+        transform.position = start_position;
+
     }
 
     private IEnumerator Move()

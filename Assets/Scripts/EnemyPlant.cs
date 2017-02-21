@@ -61,23 +61,13 @@ public class EnemyPlant : MonoBehaviour
 
     void OnTriggerEnter(Collider hit)
     {
-        print("a");
         // find out what we've hit
         if (hit.gameObject.CompareTag("Player"))
         {
             // we've hit the player
 
-            // get player script component
-            Player playerComponent = playerGameObject.GetComponent<Player>();
-
-            // remove a life from the player
-            playerComponent.Lives = playerComponent.Lives - 1;
-
-            // reset the player
-            playerComponent.Reset();
-
             // reset the enemy
-            Reset();
+            Object.FindObjectOfType<EnemyManager>().RestartEnemies();
         }
 
     }

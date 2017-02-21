@@ -32,11 +32,7 @@ public class EnemySpiner : MonoBehaviour {
 
     public void Reset()
     {
-        // reset the enemy position to the start position
-        transform.position = start_position;
-
-        // reset the movement direction
-        direction = start_direction;
+        Destroy(this.gameObject);
     }
 
     void Update()
@@ -69,17 +65,8 @@ public class EnemySpiner : MonoBehaviour {
         {
             // we've hit the player
 
-            // get player script component
-            Player playerComponent = playerGameObject.GetComponent<Player>();
-
-            // remove a life from the player
-            playerComponent.Lives = playerComponent.Lives - 1;
-
-            // reset the player
-            playerComponent.Reset();
-
             // reset the enemy
-            Reset();
+            Object.FindObjectOfType<EnemyManager>().RestartEnemies();
         }
         else if(!hit.collider.gameObject.CompareTag("Ground"))
         {
