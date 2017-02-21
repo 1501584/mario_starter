@@ -11,7 +11,8 @@ public class EnemyManager : MonoBehaviour
 	void Start ()
 	{
 		// Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
-		InvokeRepeating ("Spawn", spawnTime, spawnTime);
+		//InvokeRepeating ("Spawn", spawnTime, spawnTime);
+
 	}
 
 
@@ -30,4 +31,23 @@ public class EnemyManager : MonoBehaviour
 		// Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
 		Instantiate (enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
 	}
+
+    public void RestartEnemies()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        foreach(GameObject enemy in enemies)
+        {
+            enemy.SendMessage("Reset");
+        }
+
+        // get player script component
+        Player playerComponent = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        // remove a life from the player
+        playerComponent.Lives = playerComponent.Lives - 1;
+
+        // reset the player
+        playerComponent.Reset();
+    }
 }

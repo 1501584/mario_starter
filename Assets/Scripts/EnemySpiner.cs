@@ -26,17 +26,19 @@ public class EnemySpiner : MonoBehaviour {
         // record the start position
         start_position = transform.position;
 
+       // CHoose random direction
+        int i = Random.Range(0, 2);
+        if (i == 0)
+            direction.x = -1.0f;
+
         // record the start direction
         start_direction = direction;
+
     }
 
     public void Reset()
     {
-        // reset the enemy position to the start position
-        transform.position = start_position;
-
-        // reset the movement direction
-        direction = start_direction;
+        Destroy(this.gameObject);
     }
 
     void Update()
@@ -69,21 +71,13 @@ public class EnemySpiner : MonoBehaviour {
         {
             // we've hit the player
 
-            // get player script component
-            Player playerComponent = playerGameObject.GetComponent<Player>();
-
-            // remove a life from the player
-            playerComponent.Lives = playerComponent.Lives - 1;
-
-            // reset the player
-            playerComponent.Reset();
-
             // reset the enemy
-            Reset();
+            Object.FindObjectOfType<EnemyManager>().RestartEnemies();
         }
         else if(!hit.collider.gameObject.CompareTag("Ground"))
         {
-            direction = -direction;
+            if(hit.collider.name != gameObject.name)
+                direction = -direction;
         }
     }
 }

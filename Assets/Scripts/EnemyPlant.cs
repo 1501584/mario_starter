@@ -4,6 +4,7 @@ using System.Collections;
 public class EnemyPlant : MonoBehaviour
 {
     public float speed;
+    public bool startUp;
 
     private bool moveUp;
     private Vector3 startPosition;
@@ -15,7 +16,7 @@ public class EnemyPlant : MonoBehaviour
     {
         playerGameObject = GameObject.FindGameObjectWithTag("Player");
 
-        moveUp = true;
+        moveUp = startUp;
         startPosition = transform.position;
         direction = Vector3.zero;
         StartCoroutine("Move");
@@ -61,23 +62,13 @@ public class EnemyPlant : MonoBehaviour
 
     void OnTriggerEnter(Collider hit)
     {
-        print("a");
         // find out what we've hit
         if (hit.gameObject.CompareTag("Player"))
         {
             // we've hit the player
 
-            // get player script component
-            Player playerComponent = playerGameObject.GetComponent<Player>();
-
-            // remove a life from the player
-            playerComponent.Lives = playerComponent.Lives - 1;
-
-            // reset the player
-            playerComponent.Reset();
-
             // reset the enemy
-            Reset();
+            Object.FindObjectOfType<EnemyManager>().RestartEnemies();
         }
 
     }
